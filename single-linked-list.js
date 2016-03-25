@@ -13,29 +13,71 @@ SinglyLinkedList.prototype.add = function(data) {
   var node = new Node(data);
   if(!this.head) {
     //TODO
+    //!參數 回傳若是 無值、0、空、空字串，會被轉為true
+    this.head=node;
+    this.tail=node;
   } else {
     //TODO
+    this.tail.next=node;
+    this.tail=node;
   }
-
+  this.numberOfValues++;
 };
 
 SinglyLinkedList.prototype.remove = function(data) {
   var previous = this.head;
   var current = this.head;
   //TODO
+  while (current) {
+    if (current.data === data) {
+      if (current === this.head) {
+        this.head = this.head.next;
+      }
+      if (current === this.tail) {
+        this.tail = previous;
+      }
+      previous.next = current.next;
+      this.numberOfValues--;
+    }else {
+      previous = current;
+    }
+    current = current.next;
+  }
 };
 
 SinglyLinkedList.prototype.insertAfter = function(data, toNodeData) {
   var current = this.head;
   //TODO
+  while(current){
+    if(current.data===toNodeData){
+      var node=new Node(data);
+      if(current===this.tail){
+        this.tail.next=node;
+        this.tail=node;
+      }else {
+        node.next = current.next;
+        current.next = node;
+      }
+      this.numberOfValues++;
+    }
+    current=current.next;
+  }
 };
 
 SinglyLinkedList.prototype.length = function() {
   //TODO
+  return this.numberOfValues;
 };
 
 SinglyLinkedList.prototype.print = function() {
   //TODO
+  var string ='';
+  var current=this.head;
+  while(current){
+    string+=current.data+' ';
+    current=current.next;
+  }
+  return string.trim();
 };
 
 
